@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		F2ECA6302E4D26CF0091318F /* InstagramCloneTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramCloneTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2ECA6302E4D26CF0091318F /* InstagramCloneTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = InstagramCloneTutorial.app; path = "/Users/denismakarau/Documents/Lernen/iOS/InstagramCloneTutorial/build/Debug-iphoneos/InstagramCloneTutorial.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,16 +33,7 @@
 			isa = PBXGroup;
 			children = (
 				F2ECA6322E4D26CF0091318F /* InstagramCloneTutorial */,
-				F2ECA6312E4D26CF0091318F /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		F2ECA6312E4D26CF0091318F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F2ECA6302E4D26CF0091318F /* InstagramCloneTutorial.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,7 +86,7 @@
 			mainGroup = F2ECA6272E4D26CF0091318F;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = F2ECA6312E4D26CF0091318F /* Products */;
+			productRefGroup = F2ECA6272E4D26CF0091318F;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
