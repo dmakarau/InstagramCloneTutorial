@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		F2ECA6302E4D26CF0091318F /* InstagramCloneTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = InstagramCloneTutorial.app; path = "/Users/denismakarau/Documents/Lernen/iOS/InstagramCloneTutorial/build/Debug-iphoneos/InstagramCloneTutorial.app"; sourceTree = "<absolute>"; };
+		F2ECA6AC2E5656860091318F /* InstagramCloneTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramCloneTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,6 +33,7 @@
 			isa = PBXGroup;
 			children = (
 				F2ECA6322E4D26CF0091318F /* InstagramCloneTutorial */,
+				F2ECA6AC2E5656860091318F /* InstagramCloneTutorial.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,7 +59,7 @@
 			packageProductDependencies = (
 			);
 			productName = InstagramCloneTutorial;
-			productReference = F2ECA6302E4D26CF0091318F /* InstagramCloneTutorial.app */;
+			productReference = F2ECA6AC2E5656860091318F /* InstagramCloneTutorial.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
