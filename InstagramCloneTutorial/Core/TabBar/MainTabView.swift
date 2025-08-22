@@ -26,7 +26,7 @@ struct MainTabView: View {
                 .tabItem {
                     Image(systemName: "heart")
                 }
-            CurrentUserProfile()
+            CurrentUserProfile(user: User.MOCK_USERS[0])
                 .tabItem {
                     Image(systemName: "person")
                 }
