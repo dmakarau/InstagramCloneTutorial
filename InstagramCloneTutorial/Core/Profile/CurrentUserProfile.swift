@@ -28,7 +28,7 @@ struct CurrentUserProfile: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        // Action for the button can be added here
+                        AuthService.shared.signOut()
                     } label: {
                         Image(systemName: "line.3.horizontal")
                             .foregroundStyle(.black)
