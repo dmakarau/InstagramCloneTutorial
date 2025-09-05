@@ -128,9 +128,13 @@ service.$userSession.sink { [weak self] userSession in
 1. Clone the repository
 2. Open `InstagramCloneTutorial.xcodeproj` in Xcode
 3. Configure Firebase:
-   - Add your `GoogleService-Info.plist` to the project
+   - Create your own Firebase project at [Firebase Console](https://console.firebase.google.com)
+   - Add your `GoogleService-Info.plist` to the project root (this file is gitignored for security)
    - Update bundle ID to match your Firebase project
+   - Enable Authentication and Firestore in Firebase Console
 4. Build and run on iOS Simulator or device
+
+> **⚠️ Security Note**: Never commit Firebase configuration files (`GoogleService-Info.plist`) to version control. This project includes these files in `.gitignore` to prevent accidental exposure of API keys and sensitive configuration data.
 
 ### **Firebase Configuration**
 The project includes Firebase SDK dependencies:
