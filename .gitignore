@@ -60,3 +60,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# Firebase Configuration Files (Security Sensitive)
+GoogleService-Info.plist
+**/GoogleService-Info.plist
