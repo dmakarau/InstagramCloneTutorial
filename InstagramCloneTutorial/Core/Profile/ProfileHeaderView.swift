@@ -42,26 +42,34 @@ struct ProfileHeaderView: View {
                 }
                 
                 Text(user.username)
-            
+                
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
             
             // action button
             Button {
+                if user.isCurrentUser {
+                    print("Show Edit profile")
+                } else {
+                    print("Follow User")
+                }
             } label: {
-                Text("Edit profile")
+                Text(user.isCurrentUser ? "Edit Profile" : "Follow")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .frame(width: 360, height: 32)
-                    .foregroundStyle(.black)
+                    .background(user.isCurrentUser ? .white : Color(.blue))
+                    .foregroundStyle(user.isCurrentUser ? .black : .white )
+                    .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
-                            .stroke(Color.gray, lineWidth: 1))
+                            .stroke(user.isCurrentUser ? .gray : .clear, lineWidth: 1)
+                    )
             }
             Divider()
         }
-
+        
     }
 }
 
