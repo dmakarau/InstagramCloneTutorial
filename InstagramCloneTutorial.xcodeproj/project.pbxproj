@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F20815912E6ADFE400B5B3CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F20815902E6ADFE400B5B3CF /* GoogleService-Info.plist */; };
 		F26624B52E5C22AC0096BF0B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F26624B42E5C22AC0096BF0B /* FirebaseAuth */; };
 		F26624B72E5C22AC0096BF0B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F26624B62E5C22AC0096BF0B /* FirebaseFirestore */; };
 		F26624B92E5C22AC0096BF0B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F26624B82E5C22AC0096BF0B /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F20815902E6ADFE400B5B3CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2ECA6AC2E5656860091318F /* InstagramCloneTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramCloneTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -43,6 +45,7 @@
 			children = (
 				F2ECA6322E4D26CF0091318F /* InstagramCloneTutorial */,
 				F2ECA6AC2E5656860091318F /* InstagramCloneTutorial.app */,
+				F20815902E6ADFE400B5B3CF /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,6 +119,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F20815912E6ADFE400B5B3CF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
