@@ -12,7 +12,7 @@ struct User: Identifiable, Codable, Hashable {
     let id: String
     var username: String
     var profileImageUrl: String?
-    var fullName: String?
+    var fullname: String?
     var bio: String?
     let email: String
     
@@ -27,31 +27,31 @@ extension User {
         .init(
             id: NSUUID().uuidString,
             username: "batman",
-            profileImageUrl: "batman", fullName: "Bruce Wayne",
+            profileImageUrl: "batman", fullname: "Bruce Wayne",
             bio: "Gotham's Dark Knight", email: "batman@gmail.com"
         ),
         .init(
             id: NSUUID().uuidString,
             username: "venom",
-            profileImageUrl: "venom", fullName: "Eddie Brock",
+            profileImageUrl: "venom", fullname: "Eddie Brock",
             bio: "Venom, symbiote, rage", email: "venom@gmail.com"
         ),
         .init(
             id: NSUUID().uuidString,
             username: "ironman",
-            profileImageUrl: "ironman", fullName: "Tony Stark",
+            profileImageUrl: "ironman", fullname: "Tony Stark",
             bio: "Playboy & Billionaire", email: "ironman@gmail.com"
         ),
         .init(
             id: NSUUID().uuidString,
             username: "blackpanther",
-            profileImageUrl: "black-panther-1", fullName: nil,
+            profileImageUrl: "black-panther-1", fullname: nil,
             bio: "Gotham's Dark Knight", email: "blackpanther@gmail.com"
         ),
         .init(
             id: NSUUID().uuidString,
             username: "spiderman",
-            profileImageUrl: "spiderman", fullName: "Peter Parker",
+            profileImageUrl: "spiderman", fullname: "Peter Parker",
             bio: "Spider-Man", email: "spiderman@gmail.com"
         ),
     ]

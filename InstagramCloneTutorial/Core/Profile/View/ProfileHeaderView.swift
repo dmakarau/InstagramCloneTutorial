@@ -31,7 +31,7 @@ struct ProfileHeaderView: View {
             .padding(.horizontal)
             // name and bio
             VStack(alignment: .leading, spacing: 4) {
-                if let name = user.fullName {
+                if let name = user.fullname {
                     Text(name)
                         .font(.footnote)
                         .fontWeight(.semibold)
@@ -41,9 +41,7 @@ struct ProfileHeaderView: View {
                     Text(bio)
                         .font(.footnote)
                 }
-                
-                Text(user.username)
-                
+                                
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
@@ -71,7 +69,7 @@ struct ProfileHeaderView: View {
             Divider()
         }
         .fullScreenCover(isPresented: $showEditProfile) {
-            Text("Edit Profile View")
+            EditProfileView(user: user)
         }
         
     }

@@ -26,7 +26,7 @@ struct SearchView: View {
                                 VStack(alignment: .leading) {
                                     Text(user.username)
                                         .fontWeight(.semibold)
-                                    if let name = user.fullName {
+                                    if let name = user.fullname {
                                         Text(name)
                                     }
                                 }
