@@ -27,7 +27,7 @@ extension User {
         .init(
             id: NSUUID().uuidString,
             username: "batman",
-            profileImageUrl: "batman", fullname: "Bruce Wayne",
+            profileImageUrl: nil, fullname: "Bruce Wayne",
             bio: "Gotham's Dark Knight", email: "batman@gmail.com"
         ),
         .init(
