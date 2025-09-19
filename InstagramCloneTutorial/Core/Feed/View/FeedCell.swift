@@ -9,7 +9,18 @@ import SwiftUI
 import Kingfisher
 
 struct FeedCell: View {
-    let post: Post
+    var viewModel: FeedCellViewModel
+    private var post: Post {
+        viewModel.post
+    }
+    
+    private var didLike: Bool {
+        return post.didLike ?? false
+    }
+    
+    init(post: Post) {
+        self.viewModel = FeedCellViewModel(post: post)
+    }
     var body: some View {
         VStack {
             // Image plus username
@@ -37,9 +48,10 @@ struct FeedCell: View {
             // action buttons
             HStack(spacing: 16) {
                 Button {
-                    print("Like post")
+                    handleLikeTap()
                 } label: {
-                    Image(systemName: "heart")
+                    Image(systemName: didLike ? "heart.fill" : "heart")
+                        .foregroundStyle(didLike ? Color.red : Color.black)
                         .imageScale(.large)
                 }
                 
@@ -88,8 +100,18 @@ struct FeedCell: View {
                 .foregroundStyle(.gray)
         }
     }
+    
+    private func handleLikeTap() {
+        Task {
+            if didLike {
+                try await viewModel.unlike()
+            } else {
+                try await viewModel.like()
+            }
+        }
+    }
 }
 
 #Preview {
-    FeedCell(post: Post.MOCK_POSTS[1])
+    FeedCell(post: Post.MOCK_POSTS[0])
 }
