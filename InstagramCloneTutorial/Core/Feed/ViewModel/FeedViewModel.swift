@@ -17,7 +17,7 @@ class FeedViewModel {
     
     @MainActor
     func fetchPosts() async throws {
-        posts = try await PostService.fetchAllPosts()
+        posts = try await PostService.fetchFeedPosts()
     }
     
 }
