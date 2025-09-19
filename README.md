@@ -2,6 +2,33 @@
 
 A comprehensive iOS Instagram clone built with SwiftUI to explore modern iOS development, networking, Firebase integration, and contemporary app architecture patterns.
 
+## 📱 App Screenshots
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="Screenshots/login-screen.png" width="200" alt="Login Screen">
+        <br><b>Login Screen</b>
+      </td>
+      <td align="center">
+        <img src="Screenshots/feed-screen.png" width="200" alt="Feed Screen">
+        <br><b>Feed Screen</b>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="Screenshots/search-screen.png" width="200" alt="Search Screen">
+        <br><b>Search & Discovery</b>
+      </td>
+      <td align="center">
+        <img src="Screenshots/profile-screen.png" width="200" alt="Profile Screen">
+        <br><b>User Profile</b>
+      </td>
+    </tr>
+  </table>
+</div>
+
 ## 🎯 Project Overview
 
 This project serves as a hands-on exploration of:
@@ -29,52 +56,85 @@ This project serves as a hands-on exploration of:
 ## 🚀 Features Implemented
 
 ### **✅ Authentication System**
-- Email/password registration and login
-- Firebase Authentication integration
-- User session management with real-time state updates
-- Secure user data storage in Firestore
+- Complete email/password registration and login flow
+- Firebase Authentication integration with real-time session management
+- Multi-step registration process (email → username → password → completion)
+- Secure user data storage in Firestore with proper error handling
+- Facebook login integration option
+- "Forgot Password" functionality
 
-### **✅ User Management** 
-- User profile creation and management
-- Profile image support with Firebase Storage integration
-- User search and discovery functionality
-- Real-time user data synchronization
+### **✅ User Management & Profiles**
+- Complete user profile system with stats (posts, followers, following)
+- Profile image upload and management via Firebase Storage
+- Edit profile functionality with real-time updates
+- Bio and personal information management
+- User search and discovery with live results
+- Profile grid displaying user's posts
 
-### **✅ Feed & Posts**
-- Instagram-style feed with scrollable posts
-- Post creation with photo selection
-- User interaction patterns (likes, comments structure)
-- LazyVStack for performance optimization
+### **✅ Feed & Post System**
+- Fully functional Instagram-style feed with real-time post loading
+- Complete post creation workflow with PhotosPicker integration
+- Post upload to Firebase Storage with automatic image processing
+- Post metadata storage in Firestore with user relationship linking
+- Like functionality and interaction patterns
+- Post display with user profile integration and timestamps
+- LazyVStack implementation for smooth scrolling performance
 
-### **✅ Navigation & UI**
-- Tab-based navigation mimicking Instagram's interface
-- NavigationStack for iOS 16+ navigation patterns
-- Custom SwiftUI components and modifiers
-- Responsive design for iPhone and iPad
+### **✅ Search & Discovery**
+- Real-time user search functionality
+- Dynamic user list with profile images and usernames
+- Search results with character profiles (Venom, Ironman, Batman, etc.)
+- Instant search filtering and responsive UI
+
+### **✅ Navigation & UI Components**
+- Complete 5-tab navigation system (Feed, Search, Upload, Notifications, Profile)
+- Custom reusable components (CircularProfileImageView, UserStatView, PostGridView)
+- iOS 16+ NavigationStack implementation
+- Custom SwiftUI modifiers and styling
+- Responsive design optimized for iPhone and iPad
+- Native iOS design patterns and animations
 
 ## 📱 App Structure
 
 ```
 InstagramCloneTutorial/
 ├── App/
-│   └── InstagramCloneTutorialApp.swift      # App entry point with Firebase configuration
+│   └── InstagramCloneTutorialApp.swift           # App entry point with Firebase configuration
 ├── Core/
-│   ├── Authentication/                       # Login/Registration flows
-│   │   ├── Service/AuthService.swift         # Firebase Auth integration
-│   │   ├── ViewModel/                        # Authentication ViewModels
-│   │   └── View/                            # Authentication UI screens
-│   ├── Feed/                                # Main timeline functionality
-│   ├── Search/                              # User discovery features
-│   ├── Profile/                             # User profiles and stats
-│   ├── UploadPosts/                         # Photo upload and post creation
-│   ├── Components/                          # Reusable UI components
-│   └── TabBar/                              # Main navigation container
+│   ├── Authentication/                           # Complete authentication system
+│   │   ├── Service/AuthService.swift             # Firebase Auth integration
+│   │   ├── ViewModel/                            # LoginViewModel, RegistrationViewModel
+│   │   └── View/                                # Login, Registration flow screens
+│   ├── Feed/                                    # Main timeline functionality
+│   │   ├── View/FeedView.swift, FeedCell.swift  # Feed UI components
+│   │   └── ViewModel/FeedViewModel.swift         # Feed data management
+│   ├── Search/                                  # User discovery system
+│   │   ├── View/SearchView.swift                # Search interface
+│   │   └── ViewModel/SearchViewModel.swift       # Search functionality
+│   ├── Profile/                                 # Complete profile system
+│   │   ├── View/                                # ProfileView, EditProfileView, etc.
+│   │   └── ViewModel/EditProfileViewModel.swift # Profile management
+│   ├── UploadPosts/                             # Post creation system
+│   │   ├── View/UploadPostView.swift            # Post upload interface
+│   │   └── ViewModel/UploadPostViewModel.swift   # Upload functionality
+│   ├── Components/                              # Reusable UI components
+│   │   ├── View/CircularProfileImageView.swift  # Profile image component
+│   │   ├── View/PostGridView.swift              # Post grid display
+│   │   ├── View/UserStatView.swift              # User statistics
+│   │   └── ViewModel/PostGridViewModel.swift     # Grid data management
+│   ├── TabBar/MainTabView.swift                 # Main navigation container
+│   └── Root/                                    # App root management
+│       ├── View/ContentView.swift               # Root content view
+│       └── ViewModel/ContentViewModel.swift      # App state management
 ├── Model/
-│   ├── User.swift                           # User data model with Firebase integration
-│   └── Post.swift                           # Post data model
+│   ├── User.swift                               # User data model with Firebase integration
+│   └── Post.swift                               # Post data model with user linking
 ├── Services/
-│   └── UserService.swift                    # User data operations
-└── Assets.xcassets/                         # App icons and image assets
+│   ├── UserService.swift                        # User data operations
+│   ├── PostService.swift                        # Post data operations
+│   └── ImageUploader.swift                      # Firebase Storage image handling
+├── Assets.xcassets/                             # App icons and character images
+└── Screenshots/                                 # App screenshot collection
 ```
 
 ## 🛠 Technical Implementation
@@ -153,19 +213,26 @@ This project demonstrates:
 
 ## 🔧 Development Status
 
-**Current Implementation:**
-- ✅ Firebase Authentication (login/registration)
-- ✅ User data management and storage
-- ✅ Real-time user search and discovery
-- ✅ Basic feed and profile interfaces
-- ✅ Photo selection for posts
+**✅ Fully Implemented Features:**
+- Complete Firebase Authentication system with multi-step registration
+- User profile management with edit functionality and statistics
+- Real-time user search and discovery with live filtering
+- Full post creation and upload system with Firebase Storage integration
+- Instagram-style feed with real-time post loading and user linking
+- Profile image upload and management
+- Post grid display on user profiles
+- Native photo selection with PhotosPicker integration
+- Complete tab-based navigation system
 
-**Future Enhancements:**
-- Post creation with Firebase Storage
-- Real-time feed updates
-- Advanced user interactions (likes, comments)
-- Push notifications
+**🚧 Advanced Features (Future Enhancements):**
+- Real-time commenting system
+- Push notifications for user interactions
+- Advanced image filtering and editing tools
+- Stories functionality
+- Direct messaging system
 - Image caching and optimization
+- Offline data synchronization
+- Advanced user interaction analytics
 
 ## 📚 Key Learning Resources
 
