@@ -76,7 +76,7 @@ This project serves as a hands-on exploration of:
 - Complete post creation workflow with PhotosPicker integration
 - Post upload to Firebase Storage with automatic image processing
 - Post metadata storage in Firestore with user relationship linking
-- Like functionality and interaction patterns
+- Complete like/unlike functionality with real-time updates and Firebase integration
 - Post display with user profile integration and timestamps
 - LazyVStack implementation for smooth scrolling performance
 
@@ -219,6 +219,7 @@ This project demonstrates:
 - Real-time user search and discovery with live filtering
 - Full post creation and upload system with Firebase Storage integration
 - Instagram-style feed with real-time post loading and user linking
+- Interactive like/unlike system with optimistic updates and Firebase persistence
 - Profile image upload and management
 - Post grid display on user profiles
 - Native photo selection with PhotosPicker integration
