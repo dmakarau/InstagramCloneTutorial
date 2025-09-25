@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct FeedCell: View {
+    @State private var showComments = false
     var viewModel: FeedCellViewModel
     private var post: Post {
         viewModel.post
@@ -27,8 +28,7 @@ struct FeedCell: View {
             HStack {
                 if let user = post.user {
                     CircularProfileImageView(user: user, size: .xSmall)
-                    
-                    
+
                     Text(user.username)
                         .font(.footnote)
                         .fontWeight(.semibold)
@@ -56,7 +56,7 @@ struct FeedCell: View {
                 }
                 
                 Button {
-                    print("Comment post")
+                    showComments.toggle()
                 } label: {
                     Image(systemName: "bubble.right")
                         .imageScale(.large)
@@ -101,8 +101,12 @@ struct FeedCell: View {
                 .padding(.top, 1)
                 .foregroundStyle(.gray)
         }
+        .sheet(isPresented: $showComments, content: {
+            CommentsView()
+                .presentationDragIndicator(.visible)
+        })
     }
-    
+        
     private func handleLikeTap() {
         Task {
             if didLike {
