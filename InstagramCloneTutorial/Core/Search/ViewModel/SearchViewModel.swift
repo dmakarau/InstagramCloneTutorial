@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import Observation
 
-class SearchViewModel: ObservableObject {
-    @Published var users = [User]()
-    
+@MainActor
+@Observable
+class SearchViewModel {
+    var users = [User]()
+
     init() {
         Task { try await fetchAllUsers() }
     }
-    
-    @MainActor
+
     func fetchAllUsers() async throws {
         self.users = try await UserService.shared.fetchAllUsers()
     }

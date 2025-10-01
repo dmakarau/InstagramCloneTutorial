@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FeedView: View {
-    private var viewModel = FeedViewModel()
+    @State private var viewModel = FeedViewModel()
     var body: some View {
         NavigationStack {
             ScrollView {

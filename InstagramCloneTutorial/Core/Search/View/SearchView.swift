@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     @State private var searchedText = ""
-    @StateObject var viewModel = SearchViewModel()
+    @State var viewModel = SearchViewModel()
     var body: some View {
         NavigationStack {
             ScrollView {

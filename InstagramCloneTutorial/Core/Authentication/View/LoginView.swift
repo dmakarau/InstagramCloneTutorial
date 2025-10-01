@@ -8,26 +8,28 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject var loginViewModel = LoginViewModel()
+    @State var loginViewModel = LoginViewModel()
+    @State var registrationViewModel = RegistrationViewModel()
     var body: some View {
+        @Bindable var loginViewModel = loginViewModel
         NavigationStack {
             VStack {
-                
+
                 Spacer()
-                
+
                 // Logo image
                 Image("instagram")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 220, height: 100)
 
-                
+
                 // text fields
                 VStack {
                     TextField("Enter your email", text: $loginViewModel.email)
                         .textInputAutocapitalization(.none)
                         .modifier(IGTextFieldModifier())
-                    
+
                     SecureField("Enter your password", text: $loginViewModel.password)
                         .modifier(IGTextFieldModifier()) 
                 }
@@ -93,6 +95,7 @@ struct LoginView: View {
                 NavigationLink {
                     AddEmailView()
                         .navigationBarBackButtonHidden()
+                        .environment(registrationViewModel)
                 } label: {
                     HStack (spacing: 3) {
                         Text("Don't have an account?")

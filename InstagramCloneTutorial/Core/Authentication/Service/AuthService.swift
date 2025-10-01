@@ -8,11 +8,13 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import Observation
 
+@Observable
 class AuthService {
-    
-    @Published var userSession: FirebaseAuth.User?
-    
+
+    var userSession: FirebaseAuth.User?
+
     static let shared = AuthService()
     
     init() {

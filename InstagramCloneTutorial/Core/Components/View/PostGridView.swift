@@ -9,10 +9,10 @@ import SwiftUI
 import Kingfisher
 
 struct PostGridView: View {
-    var viewModel: PostGridViewModel
-    
+    @State var viewModel: PostGridViewModel
+
     init(user: User) {
-        self.viewModel = PostGridViewModel(user: user)
+        self._viewModel = State(wrappedValue: PostGridViewModel(user: user))
     }
     
     private let gridItems: [GridItem] = [

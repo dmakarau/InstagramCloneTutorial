@@ -9,20 +9,21 @@ import SwiftUI
 
 struct AddEmailView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var viewModel: RegistrationViewModel
+    @Environment(RegistrationViewModel.self) private var viewModel
     
     var body: some View {
+        @Bindable var viewModel = viewModel
         VStack {
             Text("Add your email")
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.top)
-            
+
             Text("You'll use this email to sign in to your account")
                 .font(.footnote)
                 .foregroundStyle(.gray)
                 .multilineTextAlignment(.center)
-            
+
             TextField("Enter your email", text: $viewModel.email)
                 .textInputAutocapitalization(.none)
                 .modifier(IGTextFieldModifier())

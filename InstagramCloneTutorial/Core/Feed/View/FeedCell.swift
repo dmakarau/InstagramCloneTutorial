@@ -10,17 +10,17 @@ import Kingfisher
 
 struct FeedCell: View {
     @State private var showComments = false
-    var viewModel: FeedCellViewModel
+    @State var viewModel: FeedCellViewModel
     private var post: Post {
         viewModel.post
     }
-    
+
     private var didLike: Bool {
         return post.didLike ?? false
     }
-    
+
     init(post: Post) {
-        self.viewModel = FeedCellViewModel(post: post)
+        self._viewModel = State(wrappedValue: FeedCellViewModel(post: post))
     }
     var body: some View {
         VStack {

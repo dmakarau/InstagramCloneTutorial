@@ -8,11 +8,13 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import Observation
 
+@Observable
 class UserService {
-    
-    @Published var currentUser: User?
-    
+
+    var currentUser: User?
+
     static let shared = UserService()
 
     func fetchUser(withUid uid: String) async throws -> User {

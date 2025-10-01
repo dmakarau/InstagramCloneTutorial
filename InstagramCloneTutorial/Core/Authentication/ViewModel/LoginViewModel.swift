@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Observation
 
-class LoginViewModel: ObservableObject {
-    @Published var email: String = ""
-    @Published var password: String = ""
+@Observable
+class LoginViewModel {
+    var email: String = ""
+    var password: String = ""
     
     func login() async throws {
        try await AuthService.shared.login(withEmail: email, password: password)

@@ -8,12 +8,15 @@
 import SwiftUI
 import PhotosUI
 import Firebase
+import Observation
 
-class EditProfileViewModel: ObservableObject {
-    @Published var user: User
-    @Published var fullname = ""
-    @Published var bio = ""
-    @Published var selectedImage: PhotosPickerItem? {
+@MainActor
+@Observable
+class EditProfileViewModel {
+    var user: User
+    var fullname = ""
+    var bio = ""
+    var selectedImage: PhotosPickerItem? {
         didSet {
             Task {
                 if let selectedImage = selectedImage {
@@ -22,12 +25,12 @@ class EditProfileViewModel: ObservableObject {
             }
         }
     }
-    
+
     private var uiImage: UIImage?
-    
+
     init(user: User) {
         self.user = user
-        
+
         if let fullname  = user.fullname {
             self.fullname = fullname
         }
@@ -35,10 +38,9 @@ class EditProfileViewModel: ObservableObject {
             self.bio = bio
         }
     }
-    
-    @Published var profileImage: Image?
-    
-    @MainActor
+
+    var profileImage: Image?
+
     func loadImage(fromtItem item: PhotosPickerItem?) async  {
         guard let item = item else { return }
         guard let data = try? await item.loadTransferable(type: Data.self) else { return }

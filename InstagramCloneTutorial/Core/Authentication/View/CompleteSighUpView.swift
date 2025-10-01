@@ -9,10 +9,9 @@ import SwiftUI
 
 struct CompleteSighUpView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var viewModel: RegistrationViewModel
+    @Environment(RegistrationViewModel.self) private var viewModel
 
     var body: some View {
-        
         VStack {
             Spacer()
             Text("Welcome to Instagram, \(viewModel.username)")
@@ -25,9 +24,9 @@ struct CompleteSighUpView: View {
                 .font(.footnote)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-            
-        
-            
+
+
+
             Button {
                 Task { try await viewModel.createUser() }
             } label: {

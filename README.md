@@ -41,17 +41,17 @@ This project serves as a hands-on exploration of:
 ## 🏗 Architecture & Design Patterns
 
 ### **SwiftUI + MVVM Architecture**
-- **View Layer**: SwiftUI views with declarative UI components
-- **ViewModel Layer**: `@Observable` classes using iOS 17+ Observation framework
-- **Service Layer**: Singleton services for Firebase authentication, user management, and data operations
+- **View Layer**: SwiftUI views with declarative UI components using `@State` and `@Bindable`
+- **ViewModel Layer**: `@Observable` classes using iOS 17+ Observation framework (no Combine)
+- **Service Layer**: Singleton `@Observable` services for Firebase authentication, user management, and data operations
 - **Model Layer**: Codable data models with Firebase integration
 
 ### **Key Technologies**
 - **SwiftUI**: Declarative UI framework with iOS 18.5+ features
 - **Firebase SDK 12.1.0**: Authentication, Firestore, and Storage
-- **Combine Framework**: Reactive programming for data binding
+- **Observation Framework**: iOS 17+ `@Observable` macro for reactive data binding (replaces Combine)
 - **PhotosPicker**: Native iOS photo selection
-- **Async/Await**: Modern Swift concurrency patterns
+- **Async/Await**: Modern Swift concurrency patterns with `@MainActor`
 
 ## 🚀 Features Implemented
 
@@ -164,30 +164,67 @@ func fetchAllUsers() async throws -> [User] {
 UserService.shared.currentUser // Accessible throughout the app
 ```
 
-### **Modern SwiftUI Patterns**
+### **Modern SwiftUI Patterns (iOS 17+)**
 ```swift
-// iOS 17+ Observation framework
+// @Observable replaces ObservableObject + @Published
 @Observable
-class UploadPostViewModel {
-    var selectedImage: PhotosPickerItem?
-    var postImage: Image?
-    
-    func loadImage(fromItem item: PhotosPickerItem?) async {
-        // Modern async image loading
+class FeedViewModel {
+    var posts = [Post]()
+
+    func fetchPosts() async throws {
+        // Modern async data loading
+    }
+}
+
+// Views use @State instead of @StateObject
+struct FeedView: View {
+    @State private var viewModel = FeedViewModel()
+
+    var body: some View {
+        ForEach(viewModel.posts) { post in
+            FeedCell(post: post)
+        }
+    }
+}
+
+// @Bindable enables two-way binding with @Observable
+struct EditProfileView: View {
+    @State private var viewModel: EditProfileViewModel
+
+    var body: some View {
+        @Bindable var viewModel = viewModel
+        TextField("Name", text: $viewModel.fullname)
     }
 }
 ```
 
-### **Reactive Data Binding**
+### **Reactive State Management**
 ```swift
-// Combine integration for real-time updates
-service.$userSession.sink { [weak self] userSession in
-    self?.userSession = userSession
-}.store(in: &cancellables)
+// Singleton @Observable services for centralized state
+@Observable
+class AuthService {
+    var userSession: FirebaseAuth.User?
+    static let shared = AuthService()
+}
 
-UserService.shared.$currentUser.sink { [weak self] currentUser in
-    self?.currentUser = currentUser
-}.store(in: &cancellables)
+@Observable
+class UserService {
+    var currentUser: User?
+    static let shared = UserService()
+}
+
+// Views automatically observe @Observable properties
+struct ContentView: View {
+    @State var viewModel = ContentViewModel()
+
+    var body: some View {
+        if viewModel.userSession == nil {
+            LoginView()
+        } else if let currentUser = viewModel.currentUser {
+            MainTabView(user: currentUser)
+        }
+    }
+}
 ```
 
 ## 🏃‍♂️ Getting Started
@@ -219,10 +256,11 @@ The project includes Firebase SDK dependencies:
 ## 🎓 Learning Objectives
 
 This project demonstrates:
-- **Modern iOS Development**: SwiftUI, iOS 17+ APIs, and contemporary patterns
+- **Modern iOS Development**: SwiftUI, iOS 17+ `@Observable` macro, and contemporary patterns
 - **Firebase Integration**: Real-time database operations and authentication
-- **Networking Concepts**: Async/await, error handling, and data synchronization
-- **App Architecture**: MVVM with reactive programming principles
+- **Swift Concurrency**: Async/await, `@MainActor`, error handling, and data synchronization
+- **App Architecture**: MVVM with `@Observable` reactive programming (no Combine)
+- **State Management**: `@State`, `@Bindable`, and `@Environment` for data flow
 - **UI/UX Implementation**: Native iOS design patterns and user interactions
 
 ## 🔧 Development Status
@@ -239,7 +277,8 @@ This project demonstrates:
 - Post grid display on user profiles
 - Native photo selection with PhotosPicker integration
 - Complete tab-based navigation system
-- Centralized user state management with singleton pattern
+- Modern iOS 17+ `@Observable` architecture (no Combine dependencies)
+- Centralized user state management with singleton `@Observable` services
 
 **🚧 Advanced Features (Future Enhancements):**
 - Push notifications for user interactions

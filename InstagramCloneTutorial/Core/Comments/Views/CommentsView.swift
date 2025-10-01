@@ -8,13 +8,13 @@ import SwiftUI
 
 struct CommentsView: View {
     @State private var commentText = ""
-    var viewModel: CommentViewModel
+    @State var viewModel: CommentViewModel
     private var currentUser: User? {
         return UserService.shared.currentUser
     }
 
-    init (post: Post) {
-        self.viewModel = CommentViewModel(post: post)
+    init(post: Post) {
+        self._viewModel = State(wrappedValue: CommentViewModel(post: post))
     }
     var body: some View {
         Text("Comments")

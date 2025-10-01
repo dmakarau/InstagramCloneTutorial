@@ -9,20 +9,21 @@ import SwiftUI
 
 struct CreatePasswordView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var viewModel: RegistrationViewModel
-    
+    @Environment(RegistrationViewModel.self) private var viewModel
+
     var body: some View {
+        @Bindable var viewModel = viewModel
         VStack {
             Text("Create password")
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.top)
-            
+
             Text("Your password must be at least 6 characters long.")
                 .font(.footnote)
                 .foregroundStyle(.gray)
                 .multilineTextAlignment(.center)
-            
+
             SecureField("Password", text: $viewModel.password)
                 .modifier(IGTextFieldModifier())
                 .padding(.top)
