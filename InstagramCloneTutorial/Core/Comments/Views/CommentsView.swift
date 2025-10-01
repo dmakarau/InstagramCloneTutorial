@@ -1,5 +1,4 @@
 //
-//  CommentsView.swift
 //  InstagramCloneTutorial
 //
 //  Created by Denis Makarau on 25.09.25.
@@ -10,6 +9,9 @@ import SwiftUI
 struct CommentsView: View {
     @State private var commentText = ""
     var viewModel: CommentViewModel
+    private var currentUser: User? {
+        return UserService.shared.currentUser
+    }
 
     init (post: Post) {
         self.viewModel = CommentViewModel(post: post)
@@ -34,7 +36,7 @@ struct CommentsView: View {
         Divider()
         
         HStack(spacing: 12) {
-            CircularProfileImageView(user: User.MOCK_USERS[0], size: .xSmall)
+            CircularProfileImageView(user: currentUser, size: .xSmall)
             ZStack(alignment: .trailing) {
                 TextField("Add a comment", text: $commentText, axis: .vertical)
                     .font(.footnote)
@@ -47,8 +49,9 @@ struct CommentsView: View {
                 
                 Button {
                     Task {
-                        try await viewModel.uploadComment(commentText: commentText)
+                        let commentTextTemp = commentText
                         commentText = ""
+                        try await viewModel.uploadComment(commentText: commentTextTemp)
                     }
                 } label: {
                     Text("Posts")

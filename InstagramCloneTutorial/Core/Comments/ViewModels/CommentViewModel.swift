@@ -32,8 +32,10 @@ class CommentViewModel {
             commentOwnerUid: uid
         )
         
+        comments.insert(comment, at: 0)
+        comments[0].user = UserService.shared.currentUser
         try await commentService.uploadComment(comment)
-        try await fetchComments()
+//        try await fetchComments()
     }
     
     func fetchComments() async throws {
@@ -44,7 +46,7 @@ class CommentViewModel {
     private func fetchUserDataForComments() async throws {
         for i in 0..<comments.count {
             let comment = comments[i]
-            let commentUser = try await UserService.fetchUser(withUid: comment.commentOwnerUid)
+            let commentUser = try await UserService.shared.fetchUser(withUid: comment.commentOwnerUid)
             comments[i].user = commentUser
         }
     }

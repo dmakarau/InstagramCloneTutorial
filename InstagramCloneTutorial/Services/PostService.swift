@@ -20,7 +20,7 @@ struct PostService {
         for i in 0..<posts.count {
             let post = posts[i]
             let ownerUid = post.ownerId
-            let postUser = try await  UserService.fetchUser(withUid: ownerUid)
+            let postUser = try await  UserService.shared.fetchUser(withUid: ownerUid)
             posts[i].user = postUser
         }
         return posts

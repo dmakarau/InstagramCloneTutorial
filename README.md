@@ -43,7 +43,7 @@ This project serves as a hands-on exploration of:
 ### **SwiftUI + MVVM Architecture**
 - **View Layer**: SwiftUI views with declarative UI components
 - **ViewModel Layer**: `@Observable` classes using iOS 17+ Observation framework
-- **Service Layer**: Firebase authentication and data services
+- **Service Layer**: Singleton services for Firebase authentication, user management, and data operations
 - **Model Layer**: Codable data models with Firebase integration
 
 ### **Key Technologies**
@@ -77,6 +77,8 @@ This project serves as a hands-on exploration of:
 - Post upload to Firebase Storage with automatic image processing
 - Post metadata storage in Firestore with user relationship linking
 - Complete like/unlike functionality with real-time updates and Firebase integration
+- Full comments system with real-time posting and fetching from Firebase
+- Optimistic UI updates for instant comment display with user data pre-population
 - Post display with user profile integration and timestamps
 - LazyVStack implementation for smooth scrolling performance
 
@@ -108,6 +110,11 @@ InstagramCloneTutorial/
 │   ├── Feed/                                    # Main timeline functionality
 │   │   ├── View/FeedView.swift, FeedCell.swift  # Feed UI components
 │   │   └── ViewModel/FeedViewModel.swift         # Feed data management
+│   ├── Comments/                                # Comments system
+│   │   ├── Model/Comment.swift                  # Comment data model
+│   │   ├── Service/CommentService.swift         # Firebase comment operations
+│   │   ├── View/CommentsView.swift, CommentsCell.swift  # Comment UI components
+│   │   └── ViewModel/CommentViewModel.swift      # Comment data management
 │   ├── Search/                                  # User discovery system
 │   │   ├── View/SearchView.swift                # Search interface
 │   │   └── ViewModel/SearchViewModel.swift       # Search functionality
@@ -130,7 +137,7 @@ InstagramCloneTutorial/
 │   ├── User.swift                               # User data model with Firebase integration
 │   └── Post.swift                               # Post data model with user linking
 ├── Services/
-│   ├── UserService.swift                        # User data operations
+│   ├── UserService.swift                        # Singleton service for user data and state management
 │   ├── PostService.swift                        # Post data operations
 │   └── ImageUploader.swift                      # Firebase Storage image handling
 ├── Assets.xcassets/                             # App icons and character images
@@ -147,11 +154,14 @@ func createUser(email: String, password: String, username: String) async throws 
     await uploadUserData(uid: result.user.uid, username: username, email: email)
 }
 
-// Firestore data operations
-static func fetchAllUsers() async throws -> [User] {
+// Firestore data operations with singleton pattern
+func fetchAllUsers() async throws -> [User] {
     let snapshot = try await Firestore.firestore().collection("users").getDocuments()
     return snapshot.documents.compactMap({ try? $0.data(as: User.self) })
 }
+
+// Centralized user state management
+UserService.shared.currentUser // Accessible throughout the app
 ```
 
 ### **Modern SwiftUI Patterns**
@@ -173,6 +183,10 @@ class UploadPostViewModel {
 // Combine integration for real-time updates
 service.$userSession.sink { [weak self] userSession in
     self?.userSession = userSession
+}.store(in: &cancellables)
+
+UserService.shared.$currentUser.sink { [weak self] currentUser in
+    self?.currentUser = currentUser
 }.store(in: &cancellables)
 ```
 
@@ -220,13 +234,14 @@ This project demonstrates:
 - Full post creation and upload system with Firebase Storage integration
 - Instagram-style feed with real-time post loading and user linking
 - Interactive like/unlike system with optimistic updates and Firebase persistence
+- Complete commenting system with real-time posting, fetching, and optimistic UI updates
 - Profile image upload and management
 - Post grid display on user profiles
 - Native photo selection with PhotosPicker integration
 - Complete tab-based navigation system
+- Centralized user state management with singleton pattern
 
 **🚧 Advanced Features (Future Enhancements):**
-- Real-time commenting system
 - Push notifications for user interactions
 - Advanced image filtering and editing tools
 - Stories functionality
