@@ -12,12 +12,27 @@ struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
     @State private var viewModel: EditProfileViewModel
 
+    @ViewBuilder
+    private func profileImageView() -> some View {
+        if let image = viewModel.profileImage {
+            image
+                .resizable()
+                .foregroundStyle(.white)
+                .background(.gray)
+                .clipShape(Circle())
+                .frame(width: 80, height: 80)
+        } else {
+            CircularProfileImageView(user: viewModel.user, size: .large)
+        }
+    }
+
     init(user: User) {
         self._viewModel = State(wrappedValue: EditProfileViewModel(user: user))
     }
 
-
+    @MainActor
     var body: some View {
+        let user = viewModel.user
         @Bindable var viewModel = viewModel
         VStack {
             // toolbar
@@ -55,17 +70,7 @@ struct EditProfileView: View {
             
             PhotosPicker(selection: $viewModel.selectedImage)  {
                 VStack {
-                    if let image = viewModel.profileImage {
-                        image
-                            .resizable()
-                            .foregroundStyle(.white)
-                            .background(.gray)
-                            .clipShape(Circle())
-                            .frame(width: 80, height: 80)
-                    }
-                    else {
-                        CircularProfileImageView(user: viewModel.user, size: .large)
-                    }
+                    profileImageView()
                     
                     Text("Edit Profile Picture")
                         .font(.footnote)
