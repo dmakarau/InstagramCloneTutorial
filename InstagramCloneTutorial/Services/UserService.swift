@@ -129,7 +129,6 @@ extension UserService {
         async let postsCount = FirebaseConstants.PostsCollection.whereField("ownerId", isEqualTo: uid)
             .getDocuments().count
         
-        print("DEBUG: Calling user stats....")
         return try await UserStats(
             followingCount: followingQueryCount,
             followersCount: followersQueryCount,

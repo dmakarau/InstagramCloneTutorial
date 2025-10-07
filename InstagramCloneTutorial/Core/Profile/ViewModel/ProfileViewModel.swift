@@ -13,7 +13,6 @@ class ProfileViewModel {
     var user: User
     
     init(user: User) {
-        print("DEBUG: Did init...")
         self.user = user
     }
 }

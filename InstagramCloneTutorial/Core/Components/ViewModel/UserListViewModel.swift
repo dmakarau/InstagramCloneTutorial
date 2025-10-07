@@ -12,9 +12,7 @@ import Foundation
 class UserListViewModel {
     var users = [User]()
     
-    init() {
-        print("DEBUG: UserListViewModel init...")
-    }
+    init() {}
     
     func fetchUsers(forConfig config: UserListConfig) async {
         do {
