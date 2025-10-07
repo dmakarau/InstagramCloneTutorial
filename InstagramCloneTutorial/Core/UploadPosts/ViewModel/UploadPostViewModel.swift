@@ -45,7 +45,7 @@ class UploadPostViewModel {
         guard let uiImage = uiImage else  { return }
         
         // create a firebase instance document for the post
-        let postRef = Firestore.firestore().collection("posts").document()
+        let postRef = FirebaseConstants.PostsCollection.document()
         
         // upload the image to the Firebase
         guard let imageUrl = try? await ImageUploader.uploadImage(image: uiImage) else { return }
