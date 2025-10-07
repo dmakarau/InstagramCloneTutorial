@@ -19,6 +19,7 @@ struct UserStatView: View {
             Text(title)
                 .font(.footnote)
         }
+        .opacity(value == 0 ? 0.5 : 1)
         .frame(width: 76)
     }
 }
