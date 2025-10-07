@@ -64,7 +64,10 @@ This project serves as a hands-on exploration of:
 - "Forgot Password" functionality
 
 ### **✅ User Management & Profiles**
-- Complete user profile system with stats (posts, followers, following)
+- Complete user profile system with real-time stats (posts, followers, following)
+- **Follow/Unfollow functionality** with Firebase integration and optimistic UI updates
+- **User relationship tracking** via dedicated Firebase collections (following/followers)
+- **Interactive user lists** for viewing followers, following, and other user contexts
 - Profile image upload and management via Firebase Storage
 - Edit profile functionality with real-time updates
 - Bio and personal information management
@@ -119,31 +122,36 @@ InstagramCloneTutorial/
 │   │   ├── View/SearchView.swift                # Search interface
 │   │   └── ViewModel/SearchViewModel.swift       # Search functionality
 │   ├── Profile/                                 # Complete profile system
-│   │   ├── View/                                # ProfileView, EditProfileView, etc.
-│   │   └── ViewModel/EditProfileViewModel.swift # Profile management
+│   │   ├── View/                                # ProfileView, EditProfileView, ProfileHeaderView, etc.
+│   │   └── ViewModel/
+│   │       ├── EditProfileViewModel.swift       # Profile editing logic
+│   │       └── ProfileViewModel.swift           # Profile data, follow/unfollow, stats management
 │   ├── UploadPosts/                             # Post creation system
 │   │   ├── View/UploadPostView.swift            # Post upload interface
 │   │   └── ViewModel/UploadPostViewModel.swift   # Upload functionality
 │   ├── Components/                              # Reusable UI components
 │   │   ├── View/CircularProfileImageView.swift  # Profile image component
 │   │   ├── View/PostGridView.swift              # Post grid display
-│   │   ├── View/UserStatView.swift              # User statistics
-│   │   └── ViewModel/PostGridViewModel.swift     # Grid data management
+│   │   ├── View/UserStatView.swift              # User statistics display
+│   │   ├── View/UserListView.swift              # User list component for followers/following
+│   │   ├── ViewModel/PostGridViewModel.swift     # Grid data management
+│   │   └── ViewModel/UserListViewModel.swift     # User list data management
 │   ├── TabBar/MainTabView.swift                 # Main navigation container
 │   └── Root/                                    # App root management
 │       ├── View/ContentView.swift               # Root content view
 │       └── ViewModel/ContentViewModel.swift      # App state management
 ├── Model/
-│   ├── User.swift                               # User data model with Firebase integration
-│   └── Post.swift                               # Post data model with user linking
+│   ├── User.swift                               # User data model with Firebase integration, follow status, and stats
+│   ├── Post.swift                               # Post data model with user linking
+│   └── UserListConfig.swift                     # Configuration enum for different user list contexts
 ├── Services/
-│   ├── UserService.swift                        # Singleton service for user data and state management
+│   ├── UserService.swift                        # Singleton service for user data, follow/unfollow, and stats
 │   ├── PostService.swift                        # Post data operations
 │   └── ImageUploader.swift                      # Firebase Storage image handling
 ├── Extension/
 │   └── Timestamp.swift                          # Firebase Timestamp extension for relative time formatting
 ├── Utils/
-│   └── Constants.swift                          # Firebase constants and centralized collection references
+│   └── Constants.swift                          # Firebase constants (users, posts, following, followers collections)
 ├── Assets.xcassets/                             # App icons and character images
 └── Screenshots/                                 # App screenshot collection
 ```
@@ -157,6 +165,8 @@ struct FirebaseConstants {
     static let Root = Firestore.firestore()
     static let UsersCollection = Root.collection("users")
     static let PostsCollection = Root.collection("posts")
+    static let FollowingCollection = Root.collection("following")
+    static let FollowersCollection = Root.collection("followers")
 }
 
 // Authentication with async/await
@@ -173,6 +183,20 @@ func fetchAllUsers() async throws -> [User] {
 
 // Centralized user state management
 UserService.shared.currentUser // Accessible throughout the app
+
+// Follow/Unfollow operations
+static func follow(uid: String) async throws {
+    // Creates subcollections in both following and followers collections
+}
+
+static func checkIfUserIsFollowed(uid: String) async throws -> Bool {
+    // Checks if current user follows the target user
+}
+
+// Fetch user statistics
+static func fetchUserStats(uid: String) async throws -> UserStats {
+    // Returns following count, followers count, and posts count
+}
 
 // Relative timestamp formatting
 extension Timestamp {
@@ -289,7 +313,10 @@ This project demonstrates:
 
 **✅ Fully Implemented Features:**
 - Complete Firebase Authentication system with multi-step registration
-- User profile management with edit functionality and statistics
+- User profile management with edit functionality and real-time statistics
+- **Follow/Unfollow system** with Firebase relationship tracking and optimistic UI updates
+- **User relationship management** with dedicated followers/following collections
+- **Interactive user lists** showing followers, following, and other user contexts
 - Real-time user search and discovery with live filtering
 - Full post creation and upload system with Firebase Storage integration
 - Instagram-style feed with real-time post loading and user linking
