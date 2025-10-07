@@ -1,4 +1,4 @@
-# Instagram Clone Tutorial - SwiftUI
+# Instagram Clone - SwiftUI
 
 A comprehensive iOS Instagram clone built with SwiftUI to explore modern iOS development, networking, Firebase integration, and contemporary app architecture patterns.
 
