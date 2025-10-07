@@ -13,6 +13,18 @@ extension Timestamp {
         formatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
         formatter.maximumUnitCount = 1
         formatter.unitsStyle = .abbreviated
-        return formatter.string(from: self.dateValue(), to: Date()) ?? ""
+        if let str = formatter.string(from: self.dateValue(), to: Date()) {
+                    return str
+                } else {
+                    let seconds = Date().timeIntervalSince(self.dateValue())
+                    if seconds < 60 {
+                        return "now"
+                    } else {
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateStyle = .medium
+                        dateFormatter.timeStyle = .short
+                        return dateFormatter.string(from: self.dateValue())
+                    }
+                }
     }
 }

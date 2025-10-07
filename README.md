@@ -140,6 +140,10 @@ InstagramCloneTutorial/
 │   ├── UserService.swift                        # Singleton service for user data and state management
 │   ├── PostService.swift                        # Post data operations
 │   └── ImageUploader.swift                      # Firebase Storage image handling
+├── Extension/
+│   └── Timestamp.swift                          # Firebase Timestamp extension for relative time formatting
+├── Utils/
+│   └── Constants.swift                          # Firebase constants and centralized collection references
 ├── Assets.xcassets/                             # App icons and character images
 └── Screenshots/                                 # App screenshot collection
 ```
@@ -148,20 +152,38 @@ InstagramCloneTutorial/
 
 ### **Firebase Integration**
 ```swift
+// Firebase constants for centralized collection references
+struct FirebaseConstants {
+    static let Root = Firestore.firestore()
+    static let UsersCollection = Root.collection("users")
+    static let PostsCollection = Root.collection("posts")
+}
+
 // Authentication with async/await
 func createUser(email: String, password: String, username: String) async throws {
     let result = try await Auth.auth().createUser(withEmail: email, password: password)
     await uploadUserData(uid: result.user.uid, username: username, email: email)
 }
 
-// Firestore data operations with singleton pattern
+// Firestore data operations with centralized constants
 func fetchAllUsers() async throws -> [User] {
-    let snapshot = try await Firestore.firestore().collection("users").getDocuments()
+    let snapshot = try await FirebaseConstants.UsersCollection.getDocuments()
     return snapshot.documents.compactMap({ try? $0.data(as: User.self) })
 }
 
 // Centralized user state management
 UserService.shared.currentUser // Accessible throughout the app
+
+// Relative timestamp formatting
+extension Timestamp {
+    func timestampString() -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
+        formatter.maximumUnitCount = 1
+        formatter.unitsStyle = .abbreviated
+        return formatter.string(from: self.dateValue(), to: Date()) ?? ""
+    }
+}
 ```
 
 ### **Modern SwiftUI Patterns (iOS 17+)**
