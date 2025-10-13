@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NotificationsCell: View {
+    let notification: IGNotification
     var body: some View {
         HStack {
             HStack {
@@ -18,7 +19,7 @@ struct NotificationsCell: View {
                         .font(.subheadline)
                         .fontWeight(.semibold) +
                     
-                    Text(" liked one of your posts.")
+                    Text(" \(notification.type.notificationMessage)")
                         .font(.subheadline) +
                     
                     Text(" 3w")
@@ -28,12 +29,29 @@ struct NotificationsCell: View {
                 
                 Spacer()
                 
-                Image("batman")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40)
-                    .clipped()
-                    .padding(.leading, 2)
+                if notification.type != .follow {
+                    Image("batman")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                        .clipped()
+                        .padding(.leading, 2)
+                } else {
+                    Button {
+                        // Handle folow action
+                        print("Follow button tapped")
+                    } label: {
+                        Text("Follow")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .frame(width: 88, height: 32)
+                            .foregroundStyle(.white)
+                            .background(.tint)
+                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                    }
+                }
+                
+               
                     
             }
             .padding(.horizontal)
@@ -42,5 +60,5 @@ struct NotificationsCell: View {
 }
 
 #Preview {
-    NotificationsCell()
+    NotificationsCell(notification: DeveloperPreview.shared.notifications[1])
 }
