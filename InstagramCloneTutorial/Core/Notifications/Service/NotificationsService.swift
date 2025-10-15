@@ -27,7 +27,7 @@ class NotificationsService {
         else { return }
         
         // create a reference to the notifications collection
-        let ref = FirebaseConstants.UserNotificationCollection(uid: currentUid).document()
+        let ref = FirebaseConstants.UserNotificationCollection(uid: uid).document()
         
         // create a notification object
         let notification = IGNotification(
@@ -45,10 +45,21 @@ class NotificationsService {
     }
     
     func deleteNotification(toUid uid: String, type: IGNotificationType, post: Post? = nil) async throws {
-    }
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
 
-    
-    
-    
-    
+        let snapshot = try await FirebaseConstants
+            .UserNotificationCollection(uid: uid)
+            .whereField("notificationSenderUid", isEqualTo: currentUid)
+            .getDocuments()
+
+        let notifications = snapshot.documents.compactMap({ try? $0.data(as: IGNotification.self)})
+        let filteredByType = notifications.filter({ $0.type == type })
+
+        guard let notificationToDelete = filteredByType.first(where: {$0.postId == post?.id}) else {
+            return
+        }
+
+        try await FirebaseConstants.UserNotificationCollection(uid: uid)
+            .document(notificationToDelete.id).delete()
+    }
 }

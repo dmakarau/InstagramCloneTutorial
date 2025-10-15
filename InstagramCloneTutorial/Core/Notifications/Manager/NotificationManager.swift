@@ -26,4 +26,12 @@ class NotificationManager {
     func uploadFollowNotification(to uid: String) async throws {
         try await service.uploadNotification(toUid: uid, type: .follow)
     }
+    
+    func deleteLikeNotification(notificationOwner: String, post: Post) async {
+        do {
+            try await service.deleteNotification(toUid: notificationOwner, type: .like, post: post)
+        } catch {
+            print("DEBUG: Failed to delete like notification with error \(error.localizedDescription)")
+        }
+    }
 }
