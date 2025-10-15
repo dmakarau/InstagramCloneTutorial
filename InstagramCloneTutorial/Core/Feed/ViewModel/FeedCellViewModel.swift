@@ -22,6 +22,8 @@ class FeedCellViewModel {
             post.didLike = true
             post.likes += 1
             try await PostService.likePost(postCopy)
+            // TODO when notifications uploading failed the like is reverted, because it is in catch
+            try await NotificationManager.shared.uploadLikeNotification(to: post.ownerId, post: post)
         } catch {
             post.didLike = false
             if post.likes > 0 {

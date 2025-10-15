@@ -35,7 +35,9 @@ class CommentViewModel {
         comments.insert(comment, at: 0)
         comments[0].user = UserService.shared.currentUser
         try await commentService.uploadComment(comment)
-//        try await fetchComments()
+        try await fetchComments()
+        try await NotificationManager.shared.uploadCommenttification(to: post.ownerId, post: post)
+        
     }
     
     func fetchComments() async throws {
