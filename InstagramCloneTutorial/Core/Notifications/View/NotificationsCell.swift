@@ -13,7 +13,9 @@ struct NotificationsCell: View {
     var body: some View {
         HStack {
             HStack {
-                CircularProfileImageView(user: notification.user, size: .xSmall)
+                NavigationLink(value: notification.user) {
+                    CircularProfileImageView(user: notification.user, size: .xSmall)
+                }
                 HStack {
                     Text(notification.user?.username ?? "Unknown")
                         .font(.subheadline)
@@ -30,12 +32,14 @@ struct NotificationsCell: View {
                 Spacer()
                 
                 if notification.type != .follow {
-                    KFImage(URL(string: notification.post?.imageUrl ?? ""))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 40, height: 40)
-                        .clipped()
-                        .padding(.leading, 2)
+                    NavigationLink(value: notification.post) {
+                        KFImage(URL(string: notification.post?.imageUrl ?? ""))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 40, height: 40)
+                            .clipped()
+                            .padding(.leading, 2)
+                    }
                 } else {
                     Button {
                         // Handle folow action
