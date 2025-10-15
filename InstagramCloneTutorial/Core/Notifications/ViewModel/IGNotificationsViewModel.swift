@@ -7,15 +7,37 @@
 
 import Foundation
 
+@MainActor
 @Observable
 class IGNotificationsViewModel {
     var notifications = [IGNotification]()
+    private let service: NotificationsService
     
-    init() {
-       fetchNotifications()
+    init(service: NotificationsService) {
+        self.service = service
+        Task { await fetchNotifications() }
     }
     
-    func fetchNotifications() {
-        notifications = DeveloperPreview.shared.notifications
+    func fetchNotifications() async  {
+        do {
+            self.notifications = try await service.fetchNotifications()
+            try await updateNotifications()
+        } catch {
+            print("DEBUG: Failed to fetch notifications with error \(error.localizedDescription)")
+        }
+    }
+    
+    private func updateNotifications() async throws {
+        // TODO Possible issue here we are waiting for each notification to fetch
+        // to improve it we can use async let to fetch all users/posts concurrently
+        for i in 0 ..< notifications.count {
+            var notification = notifications[i]
+            
+            notification.user = try await UserService.shared.fetchUser(withUid: notification.notificationSenderUid)
+            if let postId = notification.postId {
+                notification.post = try await PostService.fetchPost(withId: postId)
+            }
+            notifications[i] = notification
+        }
     }
 }

@@ -19,4 +19,8 @@ struct FirebaseConstants {
     static let FollowersCollection = Root.collection("followers")
     
     static let NotificationsCollection = Root.collection("notifications")
+    
+    static func UserNotificationCollection(uid: String) -> CollectionReference {
+        return NotificationsCollection.document(uid).collection("user-notifications")
+    }
 }

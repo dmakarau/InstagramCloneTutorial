@@ -31,6 +31,10 @@ struct PostService {
         let snapshot = try await query.getDocuments()
         return snapshot.documents.compactMap({ try? $0.data(as: Post.self) })
     }
+    
+    static func fetchPost(withId id: String) async throws -> Post {
+        return  try await postCollection.document(id).getDocument(as: Post.self)
+    }
 }
 
 // MARK: - Like/Unlike Post

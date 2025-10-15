@@ -33,7 +33,7 @@ struct MainTabView: View {
                 .tabItem {
                     Image(systemName: "plus.square")
                 }.tag(2)
-            Text("Notifications")
+            NotificationsView()
                 .onAppear {
                     selectedIndex = 3
                 }
